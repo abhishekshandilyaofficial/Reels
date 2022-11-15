@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { useEffect } from 'react';
 function Login() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -32,6 +33,15 @@ function Login() {
     await signOut(auth);
     setUser(null);
   }
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+          setUser(user);
+      }else{
+        setUser(null);
+      }
+    })
+  },[]);
   return (
     <>
       {error !== "" ? <h1>Error is {error}</h1>:loader === true ? <h1>Loaging...</h1>:user != null ? 
