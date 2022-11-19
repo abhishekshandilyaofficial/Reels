@@ -1,14 +1,12 @@
 import React,{useState} from 'react'
 import { auth } from '../firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { useEffect } from 'react';
+import {signInWithEmailAndPassword, signOut } from 'firebase/auth';
 function Login() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  let [user, setUser] = useState(null);
   let [loader, setLoader] = useState(false);
   let [error, setError] = useState("");
-  let [mainLoader, setMainLoader] = useState(true);
+  let [user, setUser] = useState(null);
   const trackEmail = (e) => {
     setEmail(e.target.value);
   }
@@ -34,20 +32,20 @@ function Login() {
     await signOut(auth);
     setUser(null);
   }
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-          setUser(user);
-      }else{
-        setUser(null);
-      }
-      setMainLoader(false);
-    })
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if(user){
+  //         setUser(user);
+  //     }else{
+  //       setUser(null);
+  //     }
+  //     setMainLoader(false);
+  //   })
     
-  },[]);
+  // },[]);
   return (
     <>
-      {mainLoader === true ? "":error !== "" ? <h1>Error is {error}</h1>:loader === true ? <h1>Loaging...</h1>:user != null ? 
+      {error !== "" ? <h1>Error is {error}</h1>:loader === true ? <h1>Loaging...</h1>:user != null ? 
       <>
         <button onClick={signout}>Signout</button>
         <h1>User is {user.uid}</h1>
