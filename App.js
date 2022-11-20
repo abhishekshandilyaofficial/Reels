@@ -24,10 +24,10 @@ function App() {
             <Forget></Forget>
             </Route>  
             <PrivateRoute path="/profile"
-            comp={<Profile></Profile> }>
+            comp={Profile }>
             </PrivateRoute>
             <PrivateRoute path="/feed"
-            comp={<Feed></Feed>}>
+            comp={Feed}>
             </PrivateRoute>
             <Route>
             <PageNotFound></PageNotFound>
@@ -43,7 +43,7 @@ function App() {
   //First - check -> are you logged in
   //Second - based on login details if null - send to login page 
   //else the page which is requested
-function PrivateRoute(){  
+function PrivateRoute(props){  
   let Component = props.comps;
   let cUser = useContext(AuthContext);
   return (
