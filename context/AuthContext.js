@@ -7,7 +7,7 @@ export function AuthContextProvider({children}){
     let [cUser, setUser] = useState(null);
     let [mainLoader, setMainLoader] = useState(true);
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
           if(user){
               setUser(user);
           }else{
@@ -15,7 +15,7 @@ export function AuthContextProvider({children}){
           }
           setMainLoader(false);
         })
-        
+        return unsubscribe;
       },[]);
     let value = cUser ;
     return(

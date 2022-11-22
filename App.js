@@ -30,11 +30,11 @@ function App() {
             comp={Profile}
           >
           </PrivateRoute>
-          <Redirect from="/" to="/feed"></Redirect>
+          <Redirect from='/' to="/feed"></Redirect>
           <Route>
             <PageNotFound></PageNotFound>
           </Route>
-          <Redirect from='/' to="/feed"></Redirect>
+          
         </Switch>
       </AuthContextProvider>
     </>
